@@ -1,0 +1,77 @@
+
+<!-- footer -->
+
+</body>
+<section id="footer">
+  <footer class="container-footer">
+    <div class>Copyright © 2022 | Tintash Mid Assignment</div>
+    <div class="footer-icons">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-github"></i></a>
+      <a href="#"></i><i class="fa-brands fa-instagram"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+    </div>
+  </footer>
+</section>
+
+<script
+  src="https://kit.fontawesome.com/a2d76772f5.js"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+  crossorigin="anonymous"
+></script>
+
+<script type="text/javascript">
+
+
+ document.querySelectorAll('.Task-item').forEach((element)=>{
+  if ( element.querySelector('form .completedStatus').getAttribute('value') === 'true')
+  {
+    element.style.backgroundColor = '#262831'
+    element.querySelector('.fa-list').style.color = '#06E0A6'
+    element.querySelector('.completeForm').innerHTML = "";
+    element.querySelector('.editForm').innerHTML = "";
+    element.querySelector('.Item-textbox').style.border = 0
+    element.querySelector('.Item-textbox').setAttribute('disabled',"")
+  }
+})
+
+
+
+document.querySelectorAll('.Task-item').forEach((element)=>{
+  const edit_form = element.querySelector('form .completedEdit')
+  if(edit_form!==null){
+  if ( element.querySelector('form .completedEdit').getAttribute('value') === 'true')
+  {
+    element.querySelector('.Item-textbox').style.borderBottom = "2px solid #75756B"
+    element.querySelector('.Item-textbox').removeAttribute('disabled')
+    element.querySelector('.editButton').innerHTML = ` <i class="fa-solid fa-floppy-disk"></i>`
+    element.querySelector('.Item-textbox').addEventListener('change',()=>{
+      const payload = {
+        message : element.querySelector('.Item-textbox').value,
+        ID : element.querySelector('.hidden').value
+      }
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('POST','/edited')
+      xhr.setRequestHeader('Content-Type','application/json')
+      let payloadString = JSON.stringify(payload)
+      xhr.send(payloadString)
+    })
+
+  }
+  else
+  {
+    element.querySelector('.Item-textbox').style.border = 0
+    element.querySelector('.Item-textbox').setAttribute('disabled',"")
+    element.querySelector('.editButton').innerHTML = ` <i class="fa-solid fa-pen-to-square "></i>`
+  }
+}
+})
+
+   
+</script>
+</html>

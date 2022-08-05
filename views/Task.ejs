@@ -1,0 +1,74 @@
+<%- include('header') -%>
+
+<section id="Task-List">
+  <div class="container">
+    <div class="searchbox">
+      <form action="/" method="post">
+        <input
+          type="text"
+          placeholder="Add a new task"
+          name="newTask"
+          class="Task-input"
+          autocomplete="off"
+        />
+        <button type="submit" class="btn btn-outline-light add-task-btn">
+          <i class="fa-solid fa-plus mx-2"></i> Add Task
+        </button>
+      </form>
+    </div>
+    <div class="row">
+      <% toDoTasks.forEach((Element)=>{ %>
+
+      <div class="col-lg-12 Task-item">
+        <div class="task-item-info my-2">
+          <i class="fa-solid fa-list mx-3"
+            ><input
+              type="text"
+              disabled
+              autocomplete="off"
+              value="<%= Element.text%>"
+              class="Task-input Item-textbox"
+          /></i>
+          
+          <p class="date"><%=Element.currentDate%></p>
+        </div>
+        <div class="task-item-action">
+          <form action="/edit" class="editForm" method="post">
+            <input type="hidden" name="hiddenID" class="hidden" value="<%= Element.id%>" />
+            <input
+              class="completedEdit"
+              type="hidden"
+              name="hiddenEdit"
+              value="<%= Element.edit%>"
+            />
+            <button class="action-btn editButton">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </form>
+          <form action="/complete" class="completeForm" method="post">
+            <input type="hidden" name="hiddenID" value="<%= Element.id%>" />
+            <input
+              class="completedStatus"
+              type="hidden"
+              name="hiddenStatus"
+              value="<%= Element.completed%>"
+            />
+            <button class="action-btn">
+              <i class="fa-solid fa-check"></i>
+            </button>
+          </form>
+          <form action="/delete" method="post">
+            <input type="hidden" name="hiddenID" value="<%= Element.id%>" />
+            <button class="action-btn">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('footer') -%>
